@@ -24,6 +24,13 @@
             href="https://community.vuetifyjs.com"
             target="_blank"
           >Discord Community</a>
+          你好，世界  <br>
+          <v-btn>
+            <v-icon>
+              mdi-discord
+            </v-icon>
+            按钮1
+          </v-btn>
         </p>
       </v-col>
 
