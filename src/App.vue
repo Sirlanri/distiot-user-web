@@ -2,7 +2,13 @@
   <v-app>
     <v-main>
       <topbar></topbar>
-      <router-view/>
+      <v-container>
+        <v-row no-gutters>
+          <v-col md="11" offset-md="0.5">
+            <router-view/>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-main>
   </v-app>
 </template>
