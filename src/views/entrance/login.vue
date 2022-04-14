@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import http from '../../plugins/axios';
+import { useRouter, useRoute } from 'vue-router'
 
+const router = useRouter()
 let usermail = ref('');
 let password = ref('');
 let info = ref('');
@@ -38,7 +40,7 @@ function LoginSubmit() {
         <v-text-field v-model="password" label="密码" :rules="[v => !!v || '请输入密码']" type="password"></v-text-field>
       </v-card-text>
       <v-card-text class="d-flex flex-row">
-        <v-btn size="large">
+        <v-btn size="large" @click="router.push({name:'register'})">
           <v-icon>mdi-arrow-left-thick</v-icon>
           注册
         </v-btn>

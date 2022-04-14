@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import http from '../../plugins/axios';
+
+const router = useRouter()
 
 let mail = ref('');
 let vcode = ref('');
@@ -71,7 +74,7 @@ function registerSubmit() {
       <v-text-field v-model="pw" label="密码" :rules="[v => !!v || '请输入密码']" type="password"></v-text-field>
     </v-card-text>
     <v-card-text class="d-flex flex-row">
-      <v-btn size="large">
+      <v-btn size="large" @click="router.push({name:'login'})">
         <v-icon>mdi-arrow-left-thick</v-icon>
         登录
       </v-btn>
