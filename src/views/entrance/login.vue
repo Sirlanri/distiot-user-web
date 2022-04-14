@@ -17,6 +17,9 @@ function LoginSubmit() {
     if (res.status === 200) {
       info.value = "登录成功，即将跳转主页"
       infoOpen.value = true
+      setTimeout(() => {
+        router.push({ name: 'userinfo' })
+      }, 1500);
       console.log("登录成功")
     } else {
       console.log("登录失败！")

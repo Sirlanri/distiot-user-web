@@ -41,6 +41,9 @@ function registerSubmit() {
     if (res.status === 200) {
       info.value = "注册成功，即将跳转登录页面"
       infoOpen.value = true
+      setTimeout(() => {
+        router.push({ name: 'login' })
+      }, 2000);
       console.log("注册成功")
     } else {
       info.value = "注册失败"
