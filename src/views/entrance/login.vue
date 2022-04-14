@@ -4,6 +4,8 @@ import http from '../../plugins/axios';
 
 let usermail = ref('');
 let password = ref('');
+let info = ref('');
+let infoOpen = ref(false);
 
 function LoginSubmit() {
   http.post('/login', {
@@ -11,11 +13,15 @@ function LoginSubmit() {
     pw: password.value
   }).then(res => {
     if (res.status === 200) {
+      info.value = "登录成功，即将跳转主页"
+      infoOpen.value = true
       console.log("登录成功")
     } else {
       console.log("登录失败！")
     }
   }).catch(err => {
+    info.value = "登录失败 " + err
+    infoOpen.value = true
     console.log(err)
   })
 }
@@ -43,5 +49,14 @@ function LoginSubmit() {
         </v-btn>
       </v-card-text>
     </v-card>
+    <v-snackbar v-model="infoOpen">
+      {{ info }}
+
+      <template v-slot:actions>
+        <v-btn color="blue" variant="text" @click="infoOpen = false">
+          知道了
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>

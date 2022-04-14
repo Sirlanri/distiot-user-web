@@ -16,14 +16,14 @@ function getVcode() {
   }).then(res => {
     if (res.status === 200) {
       console.log("获取验证码成功，请查收邮箱")
-      info.value="获取验证码成功，请查收邮箱"
-      infoOpen.value=true
+      info.value = "获取验证码成功，请查收邮箱"
+      infoOpen.value = true
     } else {
       console.log("获取验证码失败！")
     }
   }).catch(err => {
-    info.value="获取验证码失败，请检查网络"
-    infoOpen.value=true
+    info.value = "获取验证码失败，请检查网络"
+    infoOpen.value = true
     console.log("获取验证码失败！")
     console.log(err)
   })
@@ -36,17 +36,17 @@ function registerSubmit() {
     pw: pw.value
   }).then(res => {
     if (res.status === 200) {
-      info.value="注册成功，即将跳转登录页面"
-      infoOpen.value=true
+      info.value = "注册成功，即将跳转登录页面"
+      infoOpen.value = true
       console.log("注册成功")
     } else {
-      info.value="注册失败"
-      infoOpen.value=true
+      info.value = "注册失败"
+      infoOpen.value = true
       console.log("注册失败！")
     }
   }).catch(err => {
-    info.value="注册失败 "+err
-    infoOpen.value=true
+    info.value = "注册失败 " + err
+    infoOpen.value = true
     console.log(err)
   })
 }
@@ -82,19 +82,13 @@ function registerSubmit() {
       </v-btn>
     </v-card-text>
   </v-card>
-  <v-snackbar
-      v-model="infoOpen"
-    >
-      {{ info }}
+  <v-snackbar v-model="infoOpen">
+    {{ info }}
 
-      <template v-slot:actions>
-        <v-btn
-          color="blue"
-          variant="text"
-          @click="infoOpen = false"
-        >
-          知道了
-        </v-btn>
-      </template>
-    </v-snackbar>
+    <template v-slot:actions>
+      <v-btn color="blue" variant="text" @click="infoOpen = false">
+        知道了
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
