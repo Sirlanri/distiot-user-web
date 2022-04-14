@@ -1,11 +1,23 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import http from '../../plugins/axios';
 
 let usermail = ref('');
 let password = ref('');
 
 function LoginSubmit() {
-  
+  http.post('/login', {
+    mail: usermail.value,
+    pw: password.value
+  }).then(res => {
+    if (res.status === 200) {
+      console.log("登录成功")
+    } else {
+      console.log("登录失败！")
+    }
+  }).catch(err => {
+    console.log(err)
+  })
 }
 </script>
 
@@ -27,7 +39,7 @@ function LoginSubmit() {
               注册
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn size="large" color="primary">
+            <v-btn size="large" color="primary" @click="LoginSubmit">
               登录
               <v-icon>mdi-login</v-icon>
             </v-btn>
