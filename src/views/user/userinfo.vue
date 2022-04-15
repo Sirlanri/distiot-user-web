@@ -2,13 +2,13 @@
 
 import {  onMounted } from 'vue';
 import http from '../../plugins/axios';
-import { useStore } from 'vuex';
+import { useStore } from '../../store/pinia';
 
 const store = useStore();
 
 
 onMounted(()=>{
-  if (!store.getters.isLogin) {
+  if (!store.isLogin) {
     GetUserInfo()
   }
 })
@@ -28,7 +28,7 @@ function GetUserInfo() {
       data.level=res.data.level
       data.mail=res.data.mail
       data.token=res.data.token
-      store.commit('setUserInfo',data)
+      store.userInfo=data
     }
   }).catch(err=>{
     console.log(err)
@@ -42,12 +42,12 @@ function GetUserInfo() {
       用户信息
     </v-card-title>
     <v-card-text>
- 邮箱：{{store.state.userInfo.mail}}
+ 邮箱：{{store.userInfo.mail}}
     </v-card-text>
     <v-card-text>
       用户Token：<br>
       <span class="user-token">
-        {{store.state.userInfo.token}}
+        {{store.userInfo.token}}
       </span>
     </v-card-text>
   </v-card>
