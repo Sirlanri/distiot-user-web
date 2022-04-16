@@ -19,7 +19,14 @@ export const useStore = defineStore('pinia', {
   },
 
   actions: {
-
+    logout(){
+      this.userInfo={
+        mail:'',
+        level:1,
+        token:'',
+        dnum:0,
+       }
+    }
   },
 
   //数据持久化
