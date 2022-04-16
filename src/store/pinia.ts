@@ -21,4 +21,9 @@ export const useStore = defineStore('pinia', {
   actions: {
 
   },
+
+  //数据持久化
+  persist:{
+    enabled:true,
+  }
 })
