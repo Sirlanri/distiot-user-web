@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import http from '../../plugins/axios';
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 let usermail = ref('');
 let password = ref('');
 let info = ref('');
 let infoOpen = ref(false);
+let btndisabled = ref(false);
 
 function LoginSubmit() {
+  btndisabled.value = true;
   http.post('/login', {
     mail: usermail.value,
     pw: password.value
@@ -23,10 +25,12 @@ function LoginSubmit() {
       console.log("登录成功")
     } else {
       console.log("登录失败！")
+      btndisabled.value = false;
     }
   }).catch(err => {
     info.value = "登录失败 " + err
     infoOpen.value = true
+    btndisabled.value = false;
     console.log(err)
   })
 }
@@ -48,7 +52,7 @@ function LoginSubmit() {
           注册
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn size="large" color="primary" @click="LoginSubmit">
+        <v-btn size="large" color="primary" @click="LoginSubmit" :disabled="btndisabled">
           登录
           <v-icon>mdi-login</v-icon>
         </v-btn>
