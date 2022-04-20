@@ -15,6 +15,9 @@ export const useStore = defineStore('pinia', {
   getters:{
     isLogin:(state)=>{
       return state.userInfo.token!=''
+    },
+    getToken:(state)=>{
+      return state.userInfo.token
     }
   },
 

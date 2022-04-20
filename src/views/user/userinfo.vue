@@ -1,16 +1,10 @@
 <script setup lang="ts">
-
-import {  onMounted } from 'vue';
-import http from '../../plugins/axios';
 import { useStore } from '../../store/pinia';
 
 const store = useStore();
 
-
-
-
-
 </script>
+
 <template>
 <div>
   <v-card>
