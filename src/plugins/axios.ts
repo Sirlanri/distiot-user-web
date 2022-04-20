@@ -6,7 +6,7 @@ const http = axios.create({
     baseURL: 'http://localhost:8091/user',
     withCredentials:true,
 })
-
+/*
 http.interceptors.request.use(function(config){
     if (store==null) {
         store=useStore()
@@ -16,4 +16,5 @@ http.interceptors.request.use(function(config){
     
     return config
 })
+*/
 export default http;

@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import http from '../../plugins/axios';
-import { useStore } from '../../store/pinia';
 
-const store = useStore();
 let addDeviceWin=ref(false)
 let deviceName=ref('')
 let deviceType=ref(0)
@@ -24,6 +22,11 @@ let deviceTypeList=[
     value:3
   }
 ]
+let devices=ref(Array<any>())
+
+onMounted(()=>{
+  getAllDevices()
+})
 
 function submitDevice() {
   http.get('/createdevice',{
@@ -35,10 +38,23 @@ function submitDevice() {
     console.log(res)
     if(res.status===200){
       info.value='设备创建成功'
+      addDeviceWin.value=false
       infoWin.value=true
   }}).catch(err=>{
+    addDeviceWin.value=false
     info.value='设备创建失败'+err.message
     infoWin.value=true
+  })
+}
+
+function getAllDevices() {
+  http.get('/getdevices').then(res=>{
+    console.log(res)
+    if(res.status===200){
+      devices.value=res.data
+    }
+  }).catch(err=>{
+    console.log(err)
   })
 }
 </script>
@@ -52,6 +68,35 @@ function submitDevice() {
       <v-btn color="primary" size="large" @click="addDeviceWin=true">
         添加设备
       </v-btn>
+      <v-btn size="large" class="refresh-btn" @click="getAllDevices">
+        <v-icon>mdi-refresh</v-icon>
+      </v-btn>
+      <v-table>
+        <thead>
+          <tr>
+            <th>设备ID</th>
+            <th>设备名称</th>
+            <th>数据类型</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in devices">
+            <td>{{item.Did}}</td>
+            <td>{{item.Dname}}</td>
+            <td>
+              <span v-if="item.Datatype==1">
+                int 整型
+              </span>
+              <span v-if="item.Datatype==2">
+                float 浮点型
+              </span>
+              <span v-if="item.Datatype==3">
+                string 字符串型
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </v-table>
     </v-card-text>
   </v-card>
 
@@ -97,3 +142,9 @@ function submitDevice() {
       </template>
     </v-snackbar>
 </template>
+
+<style>
+.refresh-btn{
+  margin-left: 3rem;
+}
+</style>
