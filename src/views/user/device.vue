@@ -27,14 +27,6 @@ let deviceTypeList=[
 
 function submitDevice() {
   http.get('/createdevice',{
-    headers:{
-      'token':store.getToken,
-      "Access-Control-Allow-Credentials": true,
-      "Access-Control-Allow-Origin": "http://localhost:3000",
-      "Access-Control-Allow-Methods": "GET",
-      "Access-Control-Allow-Headers":" Content-Type",
-      "Vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers"
-    },
     params:{
       dname:deviceName.value,
       dataType:deviceType.value
