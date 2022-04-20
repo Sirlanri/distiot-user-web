@@ -2,8 +2,11 @@
 import { ref } from 'vue';
 import http from '../../plugins/axios';
 import { useRouter } from 'vue-router'
+import { useStore } from '../../store/pinia';
 
 const router = useRouter()
+const store = useStore()
+
 let usermail = ref('');
 let password = ref('');
 let info = ref('');
@@ -19,6 +22,8 @@ function LoginSubmit() {
     if (res.status === 200) {
       info.value = "登录成功，即将跳转主页"
       infoOpen.value = true
+      //获取用户信息 存入store
+      GetUserInfo()
       setTimeout(() => {
         router.push({ name: 'userinfo' })
       }, 1500);
@@ -34,6 +39,30 @@ function LoginSubmit() {
     console.log(err)
   })
 }
+
+//登录后 获取用户的信息
+function GetUserInfo() {
+  http.get('/getuserinfo')
+    .then(res=>{
+    if(res.status===200){
+      let data={
+        mail:'',
+        level:1,
+        token:'',
+        dnum:0,
+      }
+      data.dnum=res.data.dnum
+      data.level=res.data.level
+      data.mail=res.data.mail
+      data.token=res.data.token
+      store.userInfo=data
+    }
+  }).catch(err=>{
+    console.log(err)
+  })
+}
+
+
 </script>
 
 <template>
