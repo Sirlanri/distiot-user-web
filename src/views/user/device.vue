@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import http from '../../plugins/axios';
 
+const router=useRouter()
 let addDeviceWin=ref(false)
 let deviceName=ref('')
 let deviceType=ref(0)
@@ -57,6 +59,10 @@ function getAllDevices() {
     console.log(err)
   })
 }
+
+function jumpToData() {
+  router.push({name:'data'})
+}
 </script>
 
 <template>
@@ -70,6 +76,10 @@ function getAllDevices() {
       </v-btn>
       <v-btn size="large" class="refresh-btn" @click="getAllDevices">
         <v-icon>mdi-refresh</v-icon>
+      </v-btn>
+      <v-btn size="large" class="refresh-btn" 
+        variant="text" @click="jumpToData" color="blue">
+        前往数据中心
       </v-btn>
       <v-table>
         <thead>

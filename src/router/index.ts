@@ -11,6 +11,7 @@ const router = createRouter({
       name: 'userinfo',
       component: ()=>import('@/views/user/userdefault.vue')
     },
+
     {
       path: '/entry',
       name: 'entry',
@@ -28,6 +29,12 @@ const router = createRouter({
         },
       ]
     },
+
+    {
+      path:'/data',
+      name:'data',
+      component:()=> import('@/views/data/default.vue')
+    }
     
   ]
 })
