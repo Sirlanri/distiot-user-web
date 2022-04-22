@@ -6,23 +6,23 @@ import {
     GridComponent,
     GridComponentOption
 } from 'echarts/components';
-import { LineChart, LineSeriesOption,BarChart,BarSeriesOption } from 'echarts/charts';
+import { LineChart, LineSeriesOption } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { computed, onMounted, ref } from 'vue';
 import device1 from '../../../plugins/destiot';
 
 onMounted(() => {
-    if (props.chartType!=undefined&&props.id!=undefined) {
-      getData()
-    }
+  getData()
+  
 })
 
 const props=defineProps({
   id:Number,
   chartType:String
 })
-let chartTypeid:any=computed(()=>{
+
+let chartTypeid=computed(()=>{
   if (props.chartType=="折线图") {
     return 'line'
   }else{
@@ -30,49 +30,67 @@ let chartTypeid:any=computed(()=>{
   }
   
 })
-const simblelinechart = ref()
+let simblelinechartdom = ref()
 
+let resData:any=ref([])
 function getData() {
-  let data:any=[]
   console.log('开始执行getData')
-  let datares =device1.GetData(3)
+  let datares =device1.GetData(10)
   datares.then(res=>{
-    data=res.data
+    resData.value=res.data
+    draw()
   }).catch(e=>{
     console.error(e)
   })
-  console.log("提取数据：",data)
 }
 
+let comTime=computed(()=>{
+  let timeData: string[]=[]
+  resData.value.forEach((e: { time: string; }) => {
+    timeData.push(e.time)
+  });
+  return timeData
+})
+
+let comData=computed(()=>{
+  let data:number[]=[]
+  resData.value.forEach((e:{data:number})=>{
+    data.push(e.data)
+  })
+  return data
+})
+
 function draw() {
+  console.log("绘制",comData.value)
     echarts.use([
         TooltipComponent,
         GridComponent,
         LineChart,
         CanvasRenderer,
         UniversalTransition,
-        BarChart
+        
+        
     ]);
 
     type EChartsOption = echarts.ComposeOption<
         TooltipComponentOption | GridComponentOption | LineSeriesOption
     >;
 
-    var myChart = echarts.init(simblelinechart.value);
+    var myChart = echarts.init(simblelinechartdom.value);
     var option: EChartsOption;
 
     option = {
         xAxis: {
             type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            data: comTime.value
         },
         yAxis: {
             type: 'value',
         },
         series: [
             {
-                data: [820, 932, 901, 934, 1290, 1330, 1320],
-                type: chartTypeid,
+                data:comData.value,
+                type: 'line',
                 smooth: true
             }
         ],
@@ -87,7 +105,7 @@ function draw() {
 </script>
 
 <template>
-<div ref="simblelinechart" class="chart">
+<div ref="simblelinechartdom" class="chart">
 
 </div>
 </template>

@@ -10,11 +10,11 @@ const props=defineProps({
 const store = useStore()
 const cardid=props.cardid
 
-let selID=ref(undefined)
+let selID=ref(13)
 let chartType=['折线图','柱状图']
-let selType=ref('')
+let selType=ref('折线图')
 let ids:any=store.deviceIDS
-let chartOpen=ref(false)
+let chartOpen=ref(true)
 
 function render() {
   chartOpen.value=true
