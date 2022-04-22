@@ -70,7 +70,7 @@ function jumpToData() {
     <v-card-title>
       设备管理
     </v-card-title>
-    <v-card-text>
+    <div class="card-text">
       <v-btn color="primary" size="large" @click="addDeviceWin=true">
         添加设备
       </v-btn>
@@ -107,7 +107,7 @@ function jumpToData() {
           </tr>
         </tbody>
       </v-table>
-    </v-card-text>
+    </div>
   </v-card>
 
   <div>
@@ -156,5 +156,8 @@ function jumpToData() {
 <style>
 .refresh-btn{
   margin-left: 3rem;
+}
+.card-text{
+  padding:0.5rem 1rem
 }
 </style>

@@ -54,7 +54,7 @@ class Device {
             console.warn("请先调用GetNodeServer进行初始化")
             return
         }
-        axios.get(this.node_server+':'+this.node_port+'/node/dataWriteSingle',{
+        axios.get('http://'+this.node_server+':'+this.node_port+'/node/dataWriteSingle',{
             params:{
                 did:this.id,
                 token:this.token,
@@ -72,8 +72,10 @@ class Device {
     /**
      * GetData 从当前node节点获取小时内的数据，传入小时数
      */
-    public GetData(hour:number) {
-        axios.get(this.node_server+':'+this.node_port,{
+    public async GetData(hour:number) {
+        let data: any[] = []
+        
+        await axios.get('http://'+this.node_server+':'+this.node_port+'/node/dataReadHour',{
             params:{
                 did:this.id,
                 hours:hour,
@@ -81,10 +83,28 @@ class Device {
             }
         }).then(res=>{
             if (res.status==200) {
-                return res.data
+                data=res.data
+            }
+        }).catch(e=>{
+            console.error('GetData失败 ',e)
+        })
+
+        return data
+    }
+
+    /**
+     * GetDataReq
+     */
+    public GetDataReq(hour:number) {
+        return axios.get(this.node_server+':'+this.node_port,{
+            params:{
+                did:this.id,
+                hours:hour,
+                token:this.token
             }
         })
     }
 }
 
-export default Device
+export default 
+    Device
