@@ -2,17 +2,23 @@ import  axios from "axios"
 
 class Device {
     private token:string
-    private id:number
+    private id:number | undefined
     public master_server:string | undefined
     public user_server:string|undefined
     private node_server:string|undefined
     private node_port:number|undefined
 
-    constructor(token:string,id:number){
+    constructor(token:string){
         this.token=token
-        this.id=id
         this.master_server="http://master.distiot.ri-co.cn"
         this.user_server="http://user.distiot.ri-co.cn"
+    }
+
+    /**
+     * SetDeivceID 设置设备ID
+     */
+    public SetDeivceID(id:number|undefined) {
+        this.id=id
     }
 
     /**
@@ -32,7 +38,7 @@ class Device {
     /**
      * GetNodeServer 获取node服务器信息，必须手动使用一次
      */
-    public GetNodeServer() {
+    public async GetNodeServer() {
         axios.get(this.master_server+'/getNode',{
             params:{
                 id:this.id,
@@ -44,6 +50,7 @@ class Device {
                 this.node_port=res.data.Port
             }
         })
+        return null
     }
 
     /**
@@ -72,7 +79,10 @@ class Device {
     /**
      * GetData 从当前node节点获取小时内的数据，传入小时数
      */
-    public async GetData(hour:number) {        
+    public async GetData(hour:number|undefined) { 
+        if (this.node_server==undefined) {
+            await this.GetNodeServer()
+        }       
         return await  axios.get('http://'+this.node_server+':'+this.node_port+'/node/dataReadHour',{
             params:{
                 did:this.id,

@@ -19,7 +19,8 @@ onMounted(() => {
 
 const props=defineProps({
   id:Number,
-  chartType:String
+  chartType:String,
+  hour:Number
 })
 
 let chartTypeid=computed(()=>{
@@ -32,10 +33,11 @@ let chartTypeid=computed(()=>{
 })
 let simblelinechartdom = ref()
 
+//获取数据
 let resData:any=ref([])
 function getData() {
-  console.log('开始执行getData')
-  let datares =device1.GetData(10)
+  device1.SetDeivceID(props.id)
+  let datares =device1.GetData(props.hour)
   datares.then(res=>{
     resData.value=res.data
     draw()
