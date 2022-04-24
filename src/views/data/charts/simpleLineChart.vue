@@ -10,7 +10,7 @@ import { LineChart, LineSeriesOption } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { computed, onMounted, ref } from 'vue';
-import device1 from '../../../plugins/destiot';
+import { DeviceManager,Device } from "../../../plugins/distiot";
 
 onMounted(() => {
   getData()
@@ -23,27 +23,26 @@ const props=defineProps({
   hour:Number
 })
 
-let chartTypeid=computed(()=>{
-  if (props.chartType=="折线图") {
-    return 'line'
-  }else{
-    return 'bar'
-  }
-  
-})
+
 let simblelinechartdom = ref()
 
 //获取数据
-let resData:any=ref([])
-function getData() {
-  device1.SetDeivceID(props.id)
-  let datares =device1.GetData(props.hour)
-  datares.then(res=>{
-    resData.value=res.data
-    draw()
-  }).catch(e=>{
-    console.error(e)
+let resData=ref([])
+
+async function getData() {
+  let man=new DeviceManager("d703fcc1-655e-4a4f-bdb1-5fecd89b07cb")
+  //手动设置master和user服务器，用于本地测试，正式上线后不需要设置
+  man.MasterUrl="http://localhost:8090/master"
+  man.UserUrl="http://localhost:8091/user"
+  man.NewDevice(14).then(device=>{
+    console.log(device)
+    device.GetDataByHours(60).then(res=>{
+      resData.value=res.data
+      draw()
+    })
   })
+
+  
 }
 
 let comTime=computed(()=>{
