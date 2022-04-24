@@ -29,6 +29,7 @@ let simblelinechartdom = ref()
 //获取数据
 let resData=ref([])
 
+//ε=(´ο｀*)))唉 这他喵的就是屎山啊！！！！写的什么垃圾
 async function getData() {
   let man=new DeviceManager("d703fcc1-655e-4a4f-bdb1-5fecd89b07cb")
   //手动设置master和user服务器，用于本地测试，正式上线后不需要设置
