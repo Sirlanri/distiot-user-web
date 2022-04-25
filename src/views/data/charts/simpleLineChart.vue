@@ -11,12 +11,14 @@ import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { computed, onMounted, ref } from 'vue';
 import { DeviceManager,Device } from "../../../plugins/distiot";
+import { useStore } from '../../../store/pinia';
 
 onMounted(() => {
   getData()
   
 })
 
+const store=useStore()
 const props=defineProps({
   id:Number,
   chartType:String,
@@ -31,17 +33,19 @@ let resData=ref([])
 
 //ε=(´ο｀*)))唉 这他喵的就是屎山啊！！！！写的什么垃圾
 async function getData() {
-  let man=new DeviceManager("d703fcc1-655e-4a4f-bdb1-5fecd89b07cb")
+  let man=new DeviceManager(store.getToken)
   //手动设置master和user服务器，用于本地测试，正式上线后不需要设置
   man.MasterUrl="http://localhost:8090/master"
   man.UserUrl="http://localhost:8091/user"
-  man.NewDevice(14).then(device=>{
+  let dev1=man.NewDevice(props.id!)
+  dev1.then(device=>{
     console.log(device)
     device.GetDataByHours(60).then(res=>{
       resData.value=res.data
       draw()
     })
   })
+  
 
   
 }

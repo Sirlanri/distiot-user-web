@@ -11,6 +11,7 @@ const store = useStore()
 const cardid=props.cardid
 
 let selID=ref(undefined)
+let selHours=ref(24)
 let chartType=['折线图','柱状图']
 let selType=ref('折线图')
 let ids:any=store.deviceIDS
@@ -27,7 +28,7 @@ function render() {
     </v-card-title>
     <v-card-text>
       <v-row>
-        <v-col md="4">
+        <v-col md="3">
           <v-select v-model="selID" :items="ids"
              label="选择设备ID"
             ></v-select>
@@ -36,6 +37,11 @@ function render() {
           <v-select v-model="selType" :items="chartType" label="图表类型"
           ></v-select>
         </v-col>
+        <v-col md="3">
+          <v-text-field label="查询过去几小时的数据？" variant="outlined"
+            v-model="selHours"
+          ></v-text-field>
+        </v-col>
         <v-col>
           <v-btn size="large" color="blue" variant="outlined" @click="render">
             生成
@@ -43,7 +49,8 @@ function render() {
         </v-col>
       </v-row>
     </v-card-text>
-    <simple-line-chart v-if="chartOpen" :id="selID" :chart-type="selType"
+    <simple-line-chart v-if="chartOpen" :id="selID" 
+      :chart-type="selType" :hour="selHours"
     ></simple-line-chart>
   </v-card>
 </template>
