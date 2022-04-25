@@ -35,6 +35,7 @@ function render() {
         </v-col>
         <v-col md="4">
           <v-select v-model="selType" :items="chartType" label="图表类型"
+             item-text="text" item-value="value" 
           ></v-select>
         </v-col>
         <v-col md="3">
