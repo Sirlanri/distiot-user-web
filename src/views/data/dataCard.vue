@@ -18,7 +18,7 @@ let ids:any=store.deviceIDS
 let chartOpen=ref(false)
 
 function render() {
-  chartOpen.value=true
+  chartOpen.value=!chartOpen.value
 }
 </script>
 <template>
@@ -50,7 +50,7 @@ function render() {
         </v-col>
       </v-row>
     </v-card-text>
-    <simple-line-chart v-if="chartOpen" :id="selID" 
+    <simple-line-chart :render="chartOpen" :id="selID" 
       :chart-type="selType" :hour="selHours"
     ></simple-line-chart>
   </v-card>

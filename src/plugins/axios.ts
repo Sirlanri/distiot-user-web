@@ -1,8 +1,7 @@
 import  axios from "axios"
-import { useStore } from "../store/pinia";
-let store:any =null
 
 const http = axios.create({
+    //baseURL: 'https://user.distiot.ri-co.cn/user',
     baseURL: 'http://localhost:8091/user',
     withCredentials:true,
 })
