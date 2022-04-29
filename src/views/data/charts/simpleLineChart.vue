@@ -14,7 +14,6 @@ import { DeviceManager } from "../../../plugins/distiot";
 import { useStore } from '../../../store/pinia';
 
 onMounted(() => {
-  getData()
 
 })
 
@@ -39,13 +38,13 @@ watch(props, (newprops, oldprops) => {
 
 //ε=(´ο｀*)))唉 这他喵的就是屎山啊！！！！写的什么垃圾
 async function getData() {
-  if (props.id == undefined) {
+  if (props.id == undefined||props.hour==undefined) {
     return
   }
   let man = new DeviceManager(store.getToken)
   //手动设置master和user服务器，用于本地测试，正式上线后不需要设置
-  man.MasterUrl = "http://localhost:8001/master"
-  man.UserUrl = "http://localhost:8091/user"
+  man.MasterUrl = "http://192.168.1.150:8001/master"
+  man.UserUrl = "http://192.168.1.150:8091/user"
   let dev1 = man.NewDevice(props.id!)
   dev1.then(device => {
     console.log(device)
