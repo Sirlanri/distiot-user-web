@@ -1,23 +1,34 @@
-<script setup lang="ts">import { onMounted, reactive, ref } from 'vue';
+<script setup lang="ts">
+import { number } from 'echarts/core';
+import { onMounted, reactive, ref } from 'vue';
 import { useStore } from '../../store/pinia';
 import DataCard from './dataCard.vue';
 
-var devices = reactive(Array<any>())
-let idcount=ref(Number(1))
+//单个卡片的数据
+interface singleCard {
+  cardid: number,
+  chartTypeid: number,//1-列表 2-折线图 3-柱状图 4-大数据图
+}
+//卡片列表
+let cards: Array<singleCard>
+//计数卡片ID
+let idcount: number = 1
 
-function addTable() {
-  var temp={
-    id : idcount,
+//添加一个卡片，传入卡片可视化的类型ID
+function addTable(typeid: number) {
+  let card: singleCard = {
+    cardid: idcount,
+    chartTypeid: typeid
   }
-  devices.push(temp)
-  idcount.value++
+  cards.push(card)
+  idcount++
 }
 
-onMounted(()=>{
+onMounted(() => {
   let store = useStore()
   store.getDeviceIDs()
   store.getDevices()
-  addTable() //测试用
+  //addTable(2) //测试用
 })
 
 </script>
@@ -25,19 +36,47 @@ onMounted(()=>{
 <template>
   <v-card>
     <v-card-text>
-      <v-btn color="primary" @click="addTable">
-        新增表格
-      </v-btn>
+      <v-menu>
+        <template v-slot:activator="{ props }">
+          <v-btn color="primary" v-bind="props" size="large" variant="outlined">
+            <v-icon>
+              mdi-plus
+            </v-icon>
+            新建图表
+          </v-btn>
+        </template>
+        <v-card>
+          <v-list>
+            <v-list-item>
+              表格
+            </v-list-item>
+            <v-list-item>
+              折线图
+            </v-list-item>
+            <v-list-item>
+              柱状图
+            </v-list-item>
+            <v-list-item>
+              大数据图
+            </v-list-item>
+          </v-list>
+        </v-card>
+
+      </v-menu>
+
     </v-card-text>
   </v-card>
 
-  <DataCard  v-for="d in devices" 
-  :cardid="d.id" class="data-card">
-  </DataCard>
+  <div v-for="card in cards">
+    <DataCard :cardid="card.cardid" :datatype="card.chartTypeid" class="data-card">
+    </DataCard>
+
+  </div>
+
 
 </template>
 <style>
-.data-card{
+.data-card {
   margin-top: 1rem;
 }
 </style>
