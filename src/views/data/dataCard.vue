@@ -40,7 +40,7 @@ function render() {
         </v-col>
         <v-col md="3">
           <v-text-field label="查询过去几小时的数据？" variant="outlined"
-            v-model="selHours"
+            v-model="selHours" type="number"
           ></v-text-field>
         </v-col>
         <v-col>
