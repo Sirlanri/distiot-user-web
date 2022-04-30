@@ -9,7 +9,7 @@ import {
 import { LineChart, LineSeriesOption } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
-import { computed, ref, watch } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import { Device } from "../../../plugins/distiot";
 import manager from '../../../plugins/distiot-manager';
 
@@ -23,8 +23,13 @@ const props = defineProps({
 
 let simblelinechartdom = ref()
 
+//单列数据结构
+interface singleData{
+    time:string,
+    data:any
+}
 //获取数据
-let resData = ref([])
+let resData:Array<singleData> = reactive([])
 
 //监听，点击按钮重新生成
 watch(props, (newprops, oldprops) => {
@@ -41,7 +46,9 @@ async function getData() {
     console.log(device)
     dev2=device
     dev2.GetDataByHours(props.hour!).then(res => {
-      resData.value = res.data
+      for (let i = res.data.length -1; i>0  ; i--){
+        resData.push(res.data[i])
+      }
       draw()
     })
   })
@@ -49,7 +56,7 @@ async function getData() {
 
 let comTime = computed(() => {
   let timeData: string[] = []
-  resData.value.forEach((e: { time: string; }) => {
+  resData.forEach((e: { time: string; }) => {
     timeData.push(e.time)
   });
   return timeData
@@ -57,7 +64,7 @@ let comTime = computed(() => {
 
 let comData = computed(() => {
   let data: number[] = []
-  resData.value.forEach((e: { data: number }) => {
+  resData.forEach((e: { data: number }) => {
     data.push(e.data)
   })
   return data
