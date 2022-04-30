@@ -10,7 +10,7 @@ interface singleCard {
   chartTypeid: number,//1-列表 2-折线图 3-柱状图 4-大数据图
 }
 //卡片列表
-let cards: Array<singleCard>
+let cards:Array<singleCard>=reactive([])
 //计数卡片ID
 let idcount: number = 1
 
@@ -47,16 +47,16 @@ onMounted(() => {
         </template>
         <v-card>
           <v-list>
-            <v-list-item>
+            <v-list-item @click="addTable(1)">
               表格
             </v-list-item>
-            <v-list-item>
+            <v-list-item @click="addTable(2)">
               折线图
             </v-list-item>
-            <v-list-item>
+            <v-list-item @click="addTable(3)">
               柱状图
             </v-list-item>
-            <v-list-item>
+            <v-list-item @click="addTable(4)">
               大数据图
             </v-list-item>
           </v-list>
@@ -67,8 +67,12 @@ onMounted(() => {
     </v-card-text>
   </v-card>
 
-  <div v-for="card in cards">
-    <DataCard :cardid="card.cardid" :datatype="card.chartTypeid" class="data-card">
+  <div>
+    <DataCard 
+      v-for="(card,index) in cards"
+      :cardid="card.cardid"
+      :datatype="card.chartTypeid"
+      class="data-card">
     </DataCard>
 
   </div>

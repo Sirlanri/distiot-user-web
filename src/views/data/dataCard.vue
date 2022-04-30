@@ -48,7 +48,7 @@ let comDeviceids:any=computed(()=>{
       </v-row>
     </v-card-text>
     <simple-line-chart 
-      :render="chartOpen" 
+      v-if="props.dataType==2" 
       :id="selID"  
       :hour="selHours"
     ></simple-line-chart>
