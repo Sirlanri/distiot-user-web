@@ -87,8 +87,11 @@ function draw() {
         backgroundStyle: {
           color: 'rgba(180, 180, 180, 0.2)'
         }
-      }
-    ]
+      },
+    ],
+    tooltip: {
+      trigger: 'axis'
+    }
   };
   myChart.setOption(option);
 }
