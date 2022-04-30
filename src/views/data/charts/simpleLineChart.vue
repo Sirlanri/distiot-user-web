@@ -10,8 +10,9 @@ import { LineChart, LineSeriesOption } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { computed, onMounted, ref, watch } from 'vue';
-import { DeviceManager } from "../../../plugins/distiot";
+import { Device, DeviceManager } from "../../../plugins/distiot";
 import { useStore } from '../../../store/pinia';
+import manager from '../../../plugins/distiot-manager';
 
 onMounted(() => {
 
@@ -41,14 +42,11 @@ async function getData() {
   if (props.id == undefined||props.hour==undefined) {
     return
   }
-  let man = new DeviceManager(store.getToken)
-  //手动设置master和user服务器，用于本地测试，正式上线后不需要设置
-  man.MasterUrl = "http://192.168.1.150:8001/master"
-  man.UserUrl = "http://192.168.1.150:8091/user"
-  let dev1 = man.NewDevice(props.id!)
-  dev1.then(device => {
+  let dev2:Device
+  manager.NewDevice(props.id!).then(device => {
     console.log(device)
-    device.GetDataByHours(props.hour!).then(res => {
+    dev2=device
+    dev2.GetDataByHours(props.hour!).then(res => {
       resData.value = res.data
       draw()
     })
