@@ -71,7 +71,7 @@ onMounted(() => {
     <DataCard 
       v-for="(card,index) in cards"
       :cardid="card.cardid"
-      :datatype="card.chartTypeid"
+      :data-typeid="card.chartTypeid"
       class="data-card">
     </DataCard>
 
