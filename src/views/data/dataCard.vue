@@ -4,6 +4,7 @@ import { useStore } from '../../store/pinia';
 import SimpleLineChart from './charts/simpleLineChart.vue';
 import SimpleBarChart from './charts/simpleBarChart.vue';
 import SimpleTable from './charts/simpleTable.vue';
+import BigAreaChart from './charts/bigAreaChart.vue';
 
 const props=defineProps({
   cardid:Number,//卡片ID
@@ -78,5 +79,10 @@ let dataName=computed(()=>{
       :id="selID"  
       :hour="selHours"
     ></simple-bar-chart>
+    <big-area-chart 
+      v-if="props.dataTypeid==4" 
+      :id="selID"  
+      :hour="selHours">
+    </big-area-chart>
   </v-card>
 </template>
