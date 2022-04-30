@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import { useStore } from '../../store/pinia';
 import SimpleLineChart from './charts/simpleLineChart.vue';
 import SimpleBarChart from './charts/simpleBarChart.vue';
+import SimpleTable from './charts/simpleTable.vue';
 
 const props=defineProps({
   cardid:Number,//卡片ID
@@ -61,6 +62,11 @@ let dataName=computed(()=>{
         
       </v-row>
     </v-card-text>
+    <simple-table
+      v-if="props.dataTypeid==1" 
+      :id="selID"  
+      :hour="selHours"
+    ></simple-table>
     
     <simple-line-chart 
       v-if="props.dataTypeid==2" 

@@ -28,7 +28,7 @@ onMounted(() => {
   let store = useStore()
   store.getDeviceIDs()
   store.getDevices()
-  addTable(2) //测试用
+  //addTable(2) //测试用
 })
 
 </script>
