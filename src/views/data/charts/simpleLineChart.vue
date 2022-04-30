@@ -9,16 +9,10 @@ import {
 import { LineChart, LineSeriesOption } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
-import { computed, onMounted, ref, watch } from 'vue';
-import { Device, DeviceManager } from "../../../plugins/distiot";
-import { useStore } from '../../../store/pinia';
+import { computed, ref, watch } from 'vue';
+import { Device } from "../../../plugins/distiot";
 import manager from '../../../plugins/distiot-manager';
 
-onMounted(() => {
-
-})
-
-const store = useStore()
 const props = defineProps({
   id: Number,
   chartType: String,
