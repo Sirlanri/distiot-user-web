@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { number } from 'echarts/core';
 import { onMounted, reactive, ref } from 'vue';
 import { useStore } from '../../store/pinia';
 import DataCard from './dataCard.vue';
@@ -31,11 +30,18 @@ onMounted(() => {
   //addTable(2) //测试用
 })
 
+//关闭全部图表
+function closeAll() {
+  cards.splice(0)
+}
+
 </script>
 
 <template>
   <v-card>
     <v-card-text>
+
+      
       <v-menu>
         <template v-slot:activator="{ props }">
           <v-btn color="primary" v-bind="props" size="large" variant="outlined">
@@ -63,13 +69,21 @@ onMounted(() => {
         </v-card>
 
       </v-menu>
+      <v-btn 
+        class="right-btn"
+        variant="text" 
+        size="large" 
+        color="error"
+        @click="closeAll">
+        关闭全部图表
+      </v-btn>
 
     </v-card-text>
   </v-card>
 
   <div>
     <DataCard 
-      v-for="(card,index) in cards"
+      v-for="(card) in cards"
       :cardid="card.cardid"
       :data-typeid="card.chartTypeid"
       class="data-card">
@@ -82,5 +96,8 @@ onMounted(() => {
 <style>
 .data-card {
   margin-top: 1rem;
+}
+.right-btn{
+  float: right;
 }
 </style>
