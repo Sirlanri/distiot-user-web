@@ -74,7 +74,7 @@ class Device {
 
     //获取数据，传入小时数
     GetDataByHours(hours:number) {
-        let url="https://".concat(this.NodeAddr,":",this.NodePort.toString(),"/node/dataReadHour")
+        let url="https://".concat(this.NodeAddr,"/node/dataReadHour")
         return axios.get(url,{
             params:{
                 did:this.ID,
