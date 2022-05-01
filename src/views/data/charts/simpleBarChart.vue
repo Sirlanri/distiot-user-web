@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import * as echarts from 'echarts/core';
-import { GridComponent, GridComponentOption } from 'echarts/components';
+import { GridComponent, GridComponentOption, TooltipComponent, TooltipComponentOption } from 'echarts/components';
 import { BarChart, BarSeriesOption } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 import { computed, reactive, ref, watch } from 'vue';
@@ -65,9 +65,9 @@ let comData = computed(() => {
 
 
 function draw() {
-  echarts.use([GridComponent, BarChart, CanvasRenderer]);
+  echarts.use([GridComponent, BarChart, CanvasRenderer,TooltipComponent]);
   type EChartsOption = echarts.ComposeOption<
-    GridComponentOption | BarSeriesOption
+    GridComponentOption | BarSeriesOption |TooltipComponentOption
   >;
   let myChart = echarts.init(simblebarchartdom.value);
   let option: EChartsOption;
