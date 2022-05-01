@@ -8,8 +8,8 @@ class DeviceManager{
     constructor(token:string){
         this.token=token
         //设置默认的master user 节点
-        this.MasterUrl="http://master.distiot.ri-co.cn"
-        this.UserUrl="http://user.distiot.ri-co.cn"
+        this.MasterUrl="http://master.distiot.ri-co.cn/master"
+        this.UserUrl="http://user.distiot.ri-co.cn/user"
     }
 
     /**
