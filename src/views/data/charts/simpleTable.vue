@@ -30,6 +30,7 @@ async function getData() {
     console.log(device)
     dev1=device
     dev1.GetDataByHours(props.hour!).then(res => {
+      resData.splice(0)
       for (let i = 0; i < res.data.length ; i++) {
         resData.push(res.data[i])
         
