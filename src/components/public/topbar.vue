@@ -19,6 +19,10 @@ function logout() {
     })
 }
 
+function openDoc() {
+  window.open("https://distdoc.ri-co.cn")
+}
+
 </script>
 
 <template>
@@ -29,7 +33,9 @@ function logout() {
     <span>{{ $route.name }}</span>
   </v-toolbar-title>
   <v-spacer></v-spacer>
-  <v-btn size="large">
+  <v-btn 
+    size="large"
+    @click="openDoc" >
     文档 
     <v-icon>mdi-open-in-new</v-icon>
   </v-btn>
