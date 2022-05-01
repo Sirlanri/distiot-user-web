@@ -2,9 +2,9 @@
   <v-app>
     <v-main>
       <topbar></topbar>
-      <v-container>
+      <v-container class="container">
         <v-row no-gutters>
-          <v-col md="11" offset-md="0.5">
+          <v-col md="10" offset-md="1">
             <router-view/>
           </v-col>
         </v-row>
@@ -27,3 +27,9 @@ export default defineComponent({
     components: { Topbar }
 })
 </script>
+
+<style>
+.container{
+  max-width: none;
+}
+</style>

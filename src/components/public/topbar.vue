@@ -30,7 +30,7 @@ function openDoc() {
   <v-app-bar-nav-icon ></v-app-bar-nav-icon>
   <v-toolbar-title>
     Distiot 
-    <span>{{ $route.name }}</span>
+    <span class="version-text">V0.2.1</span>
   </v-toolbar-title>
   <v-spacer></v-spacer>
   <v-btn 
@@ -56,3 +56,8 @@ function openDoc() {
   </v-menu>
 </v-app-bar>
 </template>
+<style>
+.version-text{
+  font-size: x-small;
+}
+</style>
