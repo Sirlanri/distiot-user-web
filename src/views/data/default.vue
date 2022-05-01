@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useStore } from '../../store/pinia';
 import DataCard from './dataCard.vue';
 
@@ -33,6 +34,12 @@ onMounted(() => {
 //关闭全部图表
 function closeAll() {
   cards.splice(0)
+}
+
+//前往用户中心
+let router=useRouter()
+function jumpToUser() {
+  router.push('/')
 }
 
 </script>
@@ -69,6 +76,7 @@ function closeAll() {
         </v-card>
 
       </v-menu>
+      
       <v-btn 
         class="right-btn"
         variant="text" 
@@ -77,7 +85,13 @@ function closeAll() {
         @click="closeAll">
         关闭全部图表
       </v-btn>
-
+      <v-btn
+        class="right-btn" 
+        size="large"
+        variant="text"
+        @click="jumpToUser">
+        返回用户中心
+      </v-btn>
     </v-card-text>
   </v-card>
 
