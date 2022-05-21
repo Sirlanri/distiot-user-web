@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import http from '../../plugins/axios';
 import { useStore } from '../../store/pinia';
@@ -23,11 +24,17 @@ function openDoc() {
   window.open("https://distdoc.ri-co.cn")
 }
 
+//左侧栏
+let drawerOpen=ref(true)
+
+function jumpTo(name:string) {
+  router.push({name:name})
+}
 </script>
 
 <template>
 <v-app-bar>
-  <v-app-bar-nav-icon ></v-app-bar-nav-icon>
+  <v-app-bar-nav-icon @click="drawerOpen=!drawerOpen"></v-app-bar-nav-icon>
   <v-toolbar-title>
     Distiot 
     <span class="version-text">V0.2.1</span>
@@ -55,6 +62,20 @@ function openDoc() {
     
   </v-menu>
 </v-app-bar>
+
+<v-navigation-drawer
+  v-model="drawerOpen"
+  temporary
+>
+  <v-list>
+    <v-list-item @click="jumpTo('userinfo')">
+      用户信息
+    </v-list-item>
+    <v-list-item @click="jumpTo('data')">
+      数据中心
+    </v-list-item>
+  </v-list>
+</v-navigation-drawer>
 </template>
 <style>
 .version-text{
