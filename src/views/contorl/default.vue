@@ -15,7 +15,11 @@ function closeAll() {
 <template>
   <v-card>
     <v-card-text>
-      <v-btn color="primary" size="large" variant="outlined">
+      <v-btn 
+        @click="cards++"
+        color="primary"
+        size="large"
+        variant="outlined">
         <v-icon>
           mdi-plus
         </v-icon>
