@@ -34,6 +34,11 @@ const router = createRouter({
       path:'/data',
       name:'data',
       component:()=> import('@/views/data/default.vue')
+    },
+    {
+      path:'/control',
+      name:'control',
+      component:()=> import('@/views/contorl/default.vue')
     }
     
   ]

@@ -74,6 +74,9 @@ function jumpTo(name:string) {
     <v-list-item @click="jumpTo('data')">
       数据中心
     </v-list-item>
+    <v-list-item @click="jumpTo('control')">
+      控制硬件
+    </v-list-item>
   </v-list>
 </v-navigation-drawer>
 </template>
