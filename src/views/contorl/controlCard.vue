@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { MQClient } from '../../plugins/mqtt';
 
 //输入内容
-let topic=ref("distiot/control/web")
+let topic=ref("distiot/control/web/")
 let msg=ref("")
 
 //发送
