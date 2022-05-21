@@ -1,12 +1,12 @@
 import mqtt from 'mqtt'
 
 class MQClient{
-    BrokerURL="ws://mqtt.ri-co.cn:1883"
+    BrokerURL="ws://mqtt.ri-co.cn:8083"
     Client:mqtt.MqttClient //MQTT客户端
     constructor(){
         let option={
             keepAlive:60,
-            ClientId: 'distiot_ts_' + Math.random().toString(16),
+            ClientId: 'distiot_ts_' + Math.random().toString(16).slice(-10),
             connectTimeout: 4000
         }
         this.Client=mqtt.connect(this.BrokerURL,option)
@@ -23,7 +23,7 @@ class MQClient{
             console.log('主题为'+topic+ "发布成功")
           }
         })
-      }
+    }
 
     //监听服务器是否连接失败
     mqttError() {
