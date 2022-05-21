@@ -1,7 +1,7 @@
 import * as mqtt from 'mqtt/dist/mqtt.min'
 
 class MQClient{
-    BrokerURL="ws://mqtt.ri-co.cn:8083/mqtt"
+    BrokerURL="wss://mqtt.ri-co.cn:443/mqtt"
     Client:mqtt.MqttClient //MQTT客户端
     constructor(){
         let option={
