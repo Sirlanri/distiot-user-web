@@ -13,8 +13,7 @@ function send() {
       ClientId: 'distiot_ts_' + Math.random().toString(16).slice(-10),
       connectTimeout: 4000
   }
-  
-  let client=mqtt.connect("tcp://mqtt.ri-co.cn:1883",option)
+  let client:mqtt.Client=mqtt.connect("ws://mqtt.ri-co.cn:8083/mqtt",option)
   client.publish(topic.value,msg.value,{qos:1},(err:any)=>{
     if(!err) {
       console.log('主题为'+topic+ "发布成功")
