@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import * as mqtt from 'mqtt/dist/mqtt.min'
+import { MQClient } from '../../plugins/mqtt';
 
 //输入内容
 let topic=ref("distiot/control/web")
@@ -8,17 +8,8 @@ let msg=ref("")
 
 //发送
 function send() {
-  let option={
-      keepAlive:60,
-      ClientId: 'distiot_ts_' + Math.random().toString(16).slice(-10),
-      connectTimeout: 4000
-  }
-  let client:mqtt.Client=mqtt.connect("ws://mqtt.ri-co.cn:8083/mqtt",option)
-  client.publish(topic.value,msg.value,{qos:1},(err:any)=>{
-    if(!err) {
-      console.log('主题为'+topic+ "发布成功")
-    }
-  })
+  let client=new MQClient()
+  client.publish(topic.value,msg.value)
 }
 </script>
 <template>

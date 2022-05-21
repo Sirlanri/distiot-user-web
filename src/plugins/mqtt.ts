@@ -1,7 +1,7 @@
-import mqtt from 'mqtt'
+import * as mqtt from 'mqtt/dist/mqtt.min'
 
 class MQClient{
-    BrokerURL="ws://mqtt.ri-co.cn:8083"
+    BrokerURL="ws://mqtt.ri-co.cn:8083/mqtt"
     Client:mqtt.MqttClient //MQTT客户端
     constructor(){
         let option={
@@ -14,11 +14,11 @@ class MQClient{
 
     //发布消息@topic主题  @message发布内容
     publish(topic:string,message:string) {
-        if (!this.Client.connected) {
+        /* if (!this.Client.connected) {
           console.log('客户端未连接')
           return
-        }
-        this.Client.publish(topic,message,{qos: 2},(err) => {
+        } */
+        this.Client.publish(topic,message,{qos: 2},(err:any) => {
           if(!err) {
             console.log('主题为'+topic+ "发布成功")
           }
@@ -27,7 +27,7 @@ class MQClient{
 
     //监听服务器是否连接失败
     mqttError() {
-        this.Client.on('error',(error) => {
+        this.Client.on('error',(error:any) => {
             console.log('连接失败：',error)
             this.Client.end()
         })
